@@ -20,10 +20,10 @@ email="you@youremail.com"
 
 
 
-Incase you want to use the init script move the initscript.bash to /etc/init.d/  directory
+In case you want to use the init script move the initscript.bash to /etc/init.d/  directory
 
 and change the 
 exec="/path/to/executable" to your executable directory
 
 
-Tutorial on How I build it is at http://techarena51.com/index.php/inotify-tools-example/
+Tutorial on original author built it is at http://techarena51.com/index.php/inotify-tools-example/
