@@ -26,4 +26,4 @@ and change the
 exec="/path/to/executable" to your executable directory
 
 
-Tutorial on original author built it is at http://techarena51.com/index.php/inotify-tools-example/
+Tutorial on how original author built it is at http://techarena51.com/index.php/inotify-tools-example/
