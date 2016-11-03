@@ -2,6 +2,7 @@
 #Author Leo G
 #license GPLv2
 #techarena51.com
+#Modified for rclone by bobbintb
 
 #DECLARE VARIABLES
 backup_dir="/data"
@@ -15,11 +16,11 @@ trap 'kill -HUP 0' EXIT
 #FUNCTION TO USE RYSNC TO BACKUP DIRECTORIES
 function backup () {
 
-if rsync -avz --delete $backup_dir $server_backup_dir  2>&1 >>$log_dir
+if rclone sync $backup_dir $server_backup_dir --transfers 1  2>&1 >>$log_dir
 then
 du -sh $backup_dir| mail -s "backup succeeded $backup_dir" $email
 else
-mail -s "rysnc failed on $backup_dir" $email < $log_dir
+mail -s "rclone failed on $backup_dir" $email < $log_dir
 return 1
 fi
 }
@@ -32,10 +33,10 @@ type -P inotifywait &>/dev/null || { echo "inotifywait command not found."; exit
 while true
 do
 
-#START RSYNC AND ENSURE DIR ARE UPTO DATA
+#START RCLONE AND ENSURE DIR ARE UPTO DATA
 backup  || exit 0
 
-#START RSYNC AND TRIGGER BACKUP ON CHANGE
+#START RCLONE AND TRIGGER BACKUP ON CHANGE
 inotifywait -r -e modify,attrib,close_write,move,create,delete  --format '%T %:e %f' --timefmt '%c' $backup_dir  2>&1 >>$log_dir && backup
 
 done
